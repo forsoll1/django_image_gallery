@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+{% block stylesheet %}
+  <style>
+    p {
+      font-size: 120%;
+    }
+  </style>
+{% endblock %}
+
+{% block settingsbutton %}
+  <a class="btn btn-outline-secondary disabled" id="settings_button" href="{% url 'settings' %}?next={{ request.path|urlencode }}">Settings</a>
+{% endblock settingsbutton %}
+{% block content %}
+  <div class="jumbotron text-center">
+    <h2 class="display-5 text-center">User settings</h2>
+    <form method="post">
+      
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+      
+      <div class="container text-center">
+        <button type="submit" class="btn btn-secondary btn-lg mt-1">Save and return</button>
+        <button type="submit" class="btn btn-secondary btn-lg mt-1" name="return">Back</button>
+      </div>
+    </form>
+    <br>
+  </div>
+{% endblock %}

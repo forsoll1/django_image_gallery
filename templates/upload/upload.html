@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron text-center overflow-auto">
+
+  <h2 class="display-5 mb-3">Create an album</h2>
+      <form method="post"  enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ albumform.as_p }}
+        <button type="submit" name="submit_album" class="btn btn-secondary btn-lg">Create</button>
+      </form>
+  <br>
+
+  <h2 class="display-5 mt-3">Image upload</h2>
+    {% if albums %}
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ imageform.as_p }}
+        <button type="submit" name="submit_image" class="btn btn-secondary btn-lg">Upload</button>
+      </form>
+    {% else %}
+      <p class="display-5">No albums detected. Create an album to upload images! </p>
+    {% endif %}
+    <hr class="my-4">
+    <a class="btn btn-outline-secondary btn-lg" href="{% url 'home' %}" role="button">Back</a>
+  </div>
+{% endblock %}

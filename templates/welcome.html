@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1 class="display-4 ">Welcome to a Django Gallery!</h1>
+        <hr class="my-4">  
+        <div class="container ">
+
+            <div class="row justify-content-around align-items-center">
+                <div class="col">
+                    <p class="lead">
+                        <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">Log in</a>
+                    </p>
+                    <p class="lead">or</p>
+                    <p class="lead">
+                        <a class="btn btn-secondary btn-lg" href="{% url 'signup' %}" role="button">Sign up for an account</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

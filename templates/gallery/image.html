@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <div class="d-flex justify-content-center">
+            <img class="d-block " srcset="{{image.img_s.url}} 320w, {{image.img_m.url}} 640w, {{image.img_l.url}} 1024w"
+            sizes=" (min-width: 1400px) 1024px,
+            (max-width: 900px) 320px, 640px, "
+            src ="{{image.img_s.url}}" alt="Image slide">
+        </div><br>
+        <p class="lead">{{ image.description }}</p><br>
+        <p class="lead">Uploaded: {{ image.pub_date }}</p>
+        
+        {% if next and previous %}
+            <div class="row">
+            <div class="col">
+                <a class="btn btn-secondary btn-lg btn-block" href="{% url 'view_image' previous.id %}">Previous</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-secondary btn-lg btn-block" href="{% url 'view_image' next.id %}">Next</a>
+            </div>
+        </div>   
+        {%endif%}
+
+        <hr class="my-4">
+        <a class="btn btn-outline-secondary btn-lg" href="{% url 'albumgallery' album.id %}" role="button">Back to gallery</a>
+        <br><br>
+        
+        {% if user_albums %}
+            <a class="btn btn-secondary text-center mb-2" data-toggle="collapse" href="#moveimage" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Move image to a different album
+            </a>
+        {% endif %}
+
+        <a class="btn btn-secondary text-center mb-2" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Delete Image
+        </a>   
+        <div class="collapse" id="moveimage">
+            <br>
+            <div class="alert alert-warning" role="alert">
+                <form method="post" action="{% url 'move_image' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                        <label for="newalbum">Available albums</label>
+                        <select name="newalbum" id="new_album">
+                        {% for user_album in user_albums %}
+                            <option value="{{ user_album.id }}">{{ user_album.album_name }}</option>
+                        {% endfor %}
+                        </select>
+
+                    <input type="hidden" name="image" value="{{ image.id }}">
+                    <button type="submit" class="btn btn-secondary mt-3">Move image</button>
+                </form>
+
+            </div>
+        </div>
+        <div class="collapse" id="collapseExample">
+        <br>
+            <div class="alert alert-danger" role="alert">
+                Are you sure you want to delete this image? All data will be lost. 
+                <a class="btn btn-danger" href="{% url 'delete' image.id %}">Delete anyway</a>
+            </div>
+        </div>
+          
+    </div>
+            
+
+{% endblock %}
