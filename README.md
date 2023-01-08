@@ -1,7 +1,7 @@
 # Django based image gallery
 
 ### Launching the app
-Excute at root: <br>
+Execute at root: <br>
 <code>[your python compiler] manage.py runserver</code> <br>
 This will start the app at 127.0.0.1:8000
 Admin credentials: 
